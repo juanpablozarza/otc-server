@@ -37,7 +37,7 @@ app.get('/:state/:method', async (req, res) => {
 
 
 });
-app.use(Gun.serve, [express.json({ limit: '50mb' }), cors()]);
+app.use([Gun.serve, express.json({ limit: '50mb' }), cors()]);
 const server = app.listen(process.env.PORT || port, () => {
     console.log(`App live at ${port}`);
 })
