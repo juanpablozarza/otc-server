@@ -5,9 +5,9 @@ const { google } = require('googleapis');
 
 const app = express();
 const port = 3030;
-app.get('/:state/:method', async (req, res) => {
+app.get('/:state', async (req, res) => {
     try {
-        const { state, method } = req.params;
+        const { state } = req.params;
         const auth = await google.auth.getClient({
             keyFile: './credentials-otc.json',
             scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly']
@@ -16,7 +16,7 @@ app.get('/:state/:method', async (req, res) => {
             version: "v4",
             auth: auth
         });
-        const range = `Mexico!A1:F30`;
+        const range = `Mexico!A${state}:D${state}`;
         const response = await sheets.spreadsheets.values.get({
             spreadsheetId: '1JNw1fLcav0HUD_802gwsN5EsfQK_P5Ti1RAfnqheIiw',
             range: range
