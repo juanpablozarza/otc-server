@@ -5,6 +5,8 @@ const { google } = require('googleapis');
 
 const app = express();
 const port = 3030;
+
+app.use([Gun.serve, express.json({ limit: '50mb' }), cors({origin: 'https://otc-bismuth.herokuapp.com'})]);
 app.get('/:state', async (req, res) => {
     try {
         const { state } = req.params;
@@ -37,7 +39,6 @@ app.get('/:state', async (req, res) => {
 
 
 });
-app.use([Gun.serve, express.json({ limit: '50mb' }), cors()]);
 const server = app.listen(process.env.PORT || port, () => {
     console.log(`App live at ${port}`);
 })
